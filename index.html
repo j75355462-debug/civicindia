@@ -219,7 +219,7 @@ function confetti(){for(let i=0;i<60;i++){const c=document.createElement("i");c.
 const LOGO=new Image();LOGO.src=document.querySelector(".brand img").src;
 const sco=()=>{const t=S.fc+S.fw;return t?Math.round(S.fc/t*100):100};
 const EXP=365*864e5,left=()=>S.earned?Math.ceil((S.earned+EXP-Date.now())/864e5):0,has=()=>S.earned&&left()>0;
-function certUI(){const on=has();["dp","dn","sc","ob"].forEach(i=>$("#"+i).disabled=!on);$("#nm").disabled=!on;$("#cl").innerHTML=`<h3>${on?"🏅 "+tt("pass"):"🔒"}</h3>${on?`<div class="sco">Civic Score ${sco()}/100 · ✓ ${S.fc} · ✗ ${S.fw}</div>`:""}`;$("#wn").textContent=on?tt("left")+new Date(S.earned+EXP).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})+" ("+left()+tt("days")+")":(S.earned?tt("exp"):tt("lock"));draw()}
+function certUI(){const on=has();["#cv","#cv2","#cv3","#cv4"].forEach(i=>$(i).style.display=on?"":"none");["dp","dn","sc","ob"].forEach(i=>$("#"+i).disabled=!on);$("#nm").disabled=!on;$("#cl").innerHTML=`<h3>${on?"🏅 "+tt("pass"):"🔒"}</h3>${on?`<div class="sco">Civic Score ${sco()}/100 · ✓ ${S.fc} · ✗ ${S.fw}</div>`:""}`;$("#wn").textContent=on?tt("left")+new Date(S.earned+EXP).toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})+" ("+left()+tt("days")+")":(S.earned?tt("exp"):tt("lock"));draw()}
 $("#nm").oninput=e=>{S.name=e.target.value;sv();draw()};
 function frame(x,W,H,C){const G="#b8892b",B="#0b4a8f",P=Math.PI;let g=x.createRadialGradient(C,H/2,100,C,H/2,1100);g.addColorStop(0,"#fffef8");g.addColorStop(1,"#f5e9c8");x.fillStyle=g;x.fillRect(0,0,W,H);
 x.save();x.translate(C,H/2);x.strokeStyle=B;x.globalAlpha=.06;x.lineWidth=1.2;for(let i=0;i<72;i++){x.rotate(P/36);x.beginPath();x.ellipse(0,0,560,170,0,0,7);x.stroke()}
