@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Civic Sense India — India's Native Platforms Hub</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            saffron: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c'
+            },
+            indiaGreen: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              600: '#16a34a',
+              700: '#15803d'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    /* Custom Glow for Dudi PDF Editor */
+    @keyframes goldGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(249, 115, 22, 0.4), 0 0 30px rgba(234, 88, 12, 0.2); }
+      50% { box-shadow: 0 0 25px rgba(249, 115, 22, 0.7), 0 0 45px rgba(245, 158, 11, 0.4); }
+    }
+    .featured-glow-wrapper {
+      animation: goldGlow 3s infinite ease-in-out;
+      border-radius: 1rem;
+      border: 2px solid rgba(249, 115, 22, 0.6);
+    }
+    /* Hide scrollbar for category pills */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col selection:bg-saffron-500 selection:text-white">
+
+  <!-- Top Tricolor Accent Bar -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-[#FF9933] via-white to-[#138808]"></div>
+
+  <!-- Header & Navigation -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Logo & Tricolor Indicator -->
+      <a href="#" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-11 h-11 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-landmark text-saffron-500 text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span id="brandTitle" class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">Civic Sense India</span>
+            <div class="flex items-center gap-0.5">
+              <span class="w-2 h-2 rounded-full bg-[#FF9933]"></span>
+              <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+              <span class="w-2 h-2 rounded-full bg-[#138808]"></span>
+            </div>
+          </div>
+          <p id="brandSubtitle" class="text-[11px] font-semibold uppercase tracking-wider text-saffron-600">India's Native Platforms Hub</p>
+        </div>
+      </a>
+
+      <!-- Live Search Bar -->
+      <div class="flex-1 max-w-md hidden md:block">
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+          </span>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search 500+ Indian apps, AI tools, portals..."
+            class="w-full pl-10 pr-4 py-2.5 bg-slate-100 hover:bg-slate-50 focus:bg-white border border-slate-200 focus:border-saffron-500 rounded-xl text-sm font-medium outline-none transition-all shadow-xs"
+          />
+          <button id="clearSearchBtn" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 hidden">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls: Language Toggle & View Mode -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Language Switcher -->
+        <button
+          id="langToggleBtn"
+          onclick="toggleLanguage()"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-saffron-50 hover:text-saffron-600 border border-slate-200 text-xs sm:text-sm font-bold text-slate-700 transition-colors shadow-xs"
+          title="Switch Language / भाषा बदलें"
+        >
+          <i class="fa-solid fa-language text-saffron-500"></i>
+          <span id="langLabel">हिन्दी</span>
+        </button>
+
+        <!-- View Switcher -->
+        <div class="bg-slate-100 p-1 rounded-xl border border-slate-200 flex items-center gap-1">
+          <button
+            id="gridViewBtn"
+            onclick="setViewMode('grid')"
+            class="p-2 rounded-lg text-xs font-bold transition-all bg-white text-slate-900 shadow-xs"
+            title="Grid View"
+          >
+            <i class="fa-solid fa-grip"></i>
+          </button>
+          <button
+            id="listViewBtn"
+            onclick="setViewMode('list')"
+            class="p-2 rounded-lg text-xs font-bold transition-all text-slate-500 hover:text-slate-900"
+            title="List View"
+          >
+            <i class="fa-solid fa-list"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="px-4 pb-3.5 md:hidden">
+      <div class="relative">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        </span>
+        <input
+          type="text"
+          id="mobileSearchInput"
+          placeholder="Search 500+ Indian apps & portals..."
+          class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-slate-200 focus:border-saffron-500 rounded-xl text-sm font-medium outline-none shadow-xs"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-b from-white via-saffron-50/40 to-slate-50 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200/80">
+    <div class="max-w-4xl mx-auto text-center">
+      
+      <!-- Hero Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-saffron-100 border border-saffron-200 text-saffron-700 text-xs sm:text-sm font-extrabold mb-6 shadow-xs">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span id="heroBadge">Atmanirbhar Digital Ecosystem</span>
+      </div>
+
+      <!-- Hero Title -->
+      <h1 id="heroTitle" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight sm:leading-tight mb-5">
+        Discover the Power of Atmanirbhar Bharat — India's Greatest Native Digital Ecosystem
+      </h1>
+
+      <!-- Hero Subtitle -->
+      <p id="heroDesc" class="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed mb-8">
+        Explore over 500+ verified indigenous Indian platforms across AI, Governance, E-Commerce, Fintech, Cloud, EdTech, and Healthcare.
+      </p>
+
+      <!-- Quick Stats Strip -->
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-slate-600 font-semibold pt-2">
+        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-xs">
+          <i class="fa-solid fa-circle-check text-indiaGreen-600"></i>
+          <span><strong class="text-slate-900 font-extrabold" id="statCount">500+</strong> Verified Platforms</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-xs">
+          <i class="fa-solid fa-layer-group text-saffron-500"></i>
+          <span><strong class="text-slate-900 font-extrabold">9</strong> Curated Categories</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-xs">
+          <i class="fa-solid fa-bolt text-amber-500"></i>
+          <span>100% Direct Official Links</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+    <!-- Category Filter Tabs -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-3">
+        <span id="filterLabel" class="text-xs font-bold uppercase tracking-wider text-slate-500">
+          Browse by Category
+        </span>
+        <span id="resultCountBadge" class="text-xs font-bold text-slate-600 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-xs">
+          Showing 500+ platforms
+        </span>
+      </div>
+
+      <div id="categoryTabs" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-2">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </div>
+
+    <!-- Platforms Grid / List Container -->
+    <div id="platformsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+      <!-- Dynamically rendered via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16">
+      <div class="w-16 h-16 rounded-2xl bg-saffron-50 text-saffron-500 flex items-center justify-center mx-auto mb-4 text-2xl border border-saffron-200 shadow-xs">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-1" id="emptyTitle">No platforms found</h3>
+      <p class="text-sm text-slate-500 max-w-sm mx-auto" id="emptyDesc">Try searching with a different keyword or select "All Platforms".</p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-md">
+          <i class="fa-solid fa-landmark text-saffron-500"></i>
+        </div>
+        <div>
+          <span class="text-base font-extrabold text-slate-900">Civic Sense India</span>
+          <p class="text-xs text-slate-500 font-medium">Empowering Atmanirbhar Bharat Digital Directory</p>
+        </div>
+      </div>
+      <div class="text-xs sm:text-sm text-slate-500 font-medium">
+        Proudly curated with <i class="fa-solid fa-heart text-red-500 mx-1"></i> for India's sovereign technological growth.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Application Logic -->
+  <script>
+    // Translations Data
+    const i18n = {
+      en: {
+        brandTitle: "Civic Sense India",
+        brandSubtitle: "India's Native Platforms Hub",
+        heroBadge: "Atmanirbhar Digital Ecosystem",
+        heroTitle: "Discover the Power of Atmanirbhar Bharat — India's Greatest Native Digital Ecosystem",
+        heroDesc: "Explore over 500+ verified indigenous Indian platforms across AI, Governance, E-Commerce, Fintech, Cloud, EdTech, and Healthcare.",
+        searchPlaceholder: "Search 500+ Indian apps, AI tools, portals...",
+        filterLabel: "Browse by Category",
+        visitBtn: "Visit Platform",
+        popularBadge: "Popular",
+        featuredBadge: "Featured #1 AI Tool",
+        emptyTitle: "No platforms found",
+        emptyDesc: "Try searching with a different keyword or select 'All Platforms'."
+      },
+      hi: {
+        brandTitle: "सिविक सेंस इंडिया",
+        brandSubtitle: "भारत का स्वदेशी प्लेटफ़ॉर्म हब",
+        heroBadge: "आत्मनिर्भर डिजिटल इकोसिस्टम",
+        heroTitle: "आत्मनिर्भर भारत की ताकत को पहचानें — भारत का महान स्वदेशी डिजिटल हब",
+        heroDesc: "AI, शासन, ई-कॉमर्स, फिनटेक, क्लाउड, शिक्षा और स्वास्थ्य क्षेत्र के 500+ सत्यापित भारतीय प्लेटफ़ॉर्म खोजें।",
+        searchPlaceholder: "500+ भारतीय ऐप्स, AI टूल्स और पोर्टल खोजें...",
+        filterLabel: "श्रेणी के अनुसार देखें",
+        visitBtn: "प्लेटफ़ॉर्म पर जाएं",
+        popularBadge: "लोकप्रिय",
+        featuredBadge: "शीर्ष #1 AI टूल",
+        emptyTitle: "कोई प्लेटफ़ॉर्म नहीं मिला",
+        emptyDesc: "कृपया अन्य कीवर्ड से खोजें या 'सभी प्लेटफ़ॉर्म' चुनें।"
+      }
+    };
+
+    let currentLang = "en";
+    let currentView = "grid";
+    let activeCategory = "all";
+    let searchQuery = "";
+
+    // Categories Configuration
+    const categories = [
+      { id: "all", en: "All Platforms", hi: "सभी प्लेटफ़ॉर्म", icon: "fa-globe" },
+      { id: "ai", en: "AI & Language Tech", hi: "AI और भाषा तकनीक", icon: "fa-wand-magic-sparkles" },
+      { id: "gov", en: "Gov & Digital Public Infra", hi: "सरकारी और डिजिटल सेवाएं", icon: "fa-building-columns" },
+      { id: "ecommerce", en: "E-Commerce & Retail", hi: "ई-कॉमर्स और रिटेल", icon: "fa-bag-shopping" },
+      { id: "finance", en: "Finance & Fintech", hi: "फाइनेंस और फिनटेक", icon: "fa-wallet" },
+      { id: "social", en: "Social & Gaming", hi: "सोशल मीडिया और गेमिंग", icon: "fa-gamepad" },
+      { id: "travel", en: "Travel & Mobility", hi: "यात्रा और मोबिलिटी", icon: "fa-train-subway" },
+      { id: "edtech", en: "EdTech & Research", hi: "शिक्षा और अनुसंधान", icon: "fa-graduation-cap" },
+      { id: "cloud", en: "Cloud & Hardware", hi: "क्लाउड और हार्डवेयर", icon: "fa-cloud" },
+      { id: "health", en: "Healthcare & Wellness", hi: "स्वास्थ्य और वेलनेस", icon: "fa-heart-pulse" }
+    ];
+
+    // Core Verified Platforms (Dudi PDF Editor #1 in AI)
+    const platforms = [
+      // ==================== AI & PRODUCTIVITY (Dudi PDF Editor FIRST & GLOWING) ====================
+      {
+        name: "Dudi PDF Editor",
+        url: "https://dudipdfeditor.in/",
+        category: "ai",
+        featured: true,
+        popular: true,
+        descEn: "All-in-one Indian AI-powered PDF editor to edit, merge, split, compress, and manage PDF documents effortlessly.",
+        descHi: "पीडीएफ फाइलों को एडिट, मर्ज, कंप्रेस और मैनेज करने वाला भारत का प्रमुख AI PDF एडिटर।"
+      },
+      {
+        name: "Ola Krutrim",
+        url: "https://www.olakrutrim.com/",
+        category: "ai",
+        popular: true,
+        descEn: "India's first homegrown foundational AI model, cloud, and multilingual AI assistant.",
+        descHi: "भारत का पहला स्वदेशी फाउंडेशनल AI मॉडल और बहुभाषी AI असिस्टेंट।"
+      },
+      {
+        name: "Sarvam AI",
+        url: "https://www.sarvam.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "Full-stack generative AI platform building sovereign Indian language models and voice agents.",
+        descHi: "भारतीय भाषाओं के लिए जनरेटिव AI मॉडल और वॉइस एजेंट बनाने वाला प्रमुख प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Bhashini (Govt. of India)",
+        url: "https://bhashini.gov.in/",
+        category: "ai",
+        popular: true,
+        descEn: "National Language Translation Mission enabling voice-first digital access in 22+ Indian languages.",
+        descHi: "22+ भारतीय भाषाओं में अनुवाद और वॉइस तकनीक प्रदान करने वाला राष्ट्रीय मिशन।"
+      },
+      {
+        name: "Zoho",
+        url: "https://www.zoho.com/",
+        category: "ai",
+        popular: true,
+        descEn: "India's flagship global SaaS suite offering 55+ cloud business, CRM, finance, and AI office apps.",
+        descHi: "55+ बिज़नेस, CRM और ऑफिस ऐप्स प्रदान करने वाली भारत की अग्रणी SaaS कंपनी।"
+      },
+      {
+        name: "Postman",
+        url: "https://www.postman.com/",
+        category: "ai",
+        popular: true,
+        descEn: "World's leading API development and AI-ready collaboration platform founded in Bengaluru.",
+        descHi: "बेंगलुरु में स्थापित दुनिया का सबसे लोकप्रिय API डेवलपमेंट प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "BrowserStack",
+        url: "https://www.browserstack.com/",
+        category: "ai",
+        popular: true,
+        descEn: "Leading cloud web and mobile app testing infrastructure trusted globally.",
+        descHi: "वेब और मोबाइल ऐप टेस्टिंग का विश्व-प्रसिद्ध भारतीय क्लाउड प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Freshworks",
+        url: "https://www.freshworks.com/",
+        category: "ai",
+        popular: true,
+        descEn: "AI-powered customer service, IT, and CRM software suite built in Chennai.",
+        descHi: "चेन्नई में निर्मित AI-आधारित कस्टमर सर्विस और CRM सॉफ़्टवेयर सुइट।"
+      },
+      {
+        name: "AI4Bharat (IIT Madras)",
+        url: "https://ai4bharat.iitm.ac.in/",
+        category: "ai",
+        popular: true,
+        descEn: "Open-source Indian language AI research lab creating datasets, IndicTrans, and speech models.",
+        descHi: "IIT मद्रास की ओपन-सोर्स भारतीय भाषा AI रिसर्च लैब।"
+      },
+      {
+        name: "IndiaAI Portal",
+        url: "https://indiaai.gov.in/",
+        category: "ai",
+        popular: true,
+        descEn: "National AI portal of India for artificial intelligence news, research, datasets, and initiatives.",
+        descHi: "भारत सरकार का आधिकारिक आर्टिफिशियल इंटेलिजेंस पोर्टल।"
+      },
+      {
+        name: "CoRover.ai (BharatGPT)",
+        url: "https://corover.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "Creators of BharatGPT and IRCTC AskDISHA conversational AI virtual assistants.",
+        descHi: "BharatGPT और IRCTC AskDISHA बनाने वाला संवादात्मक AI प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Haptik",
+        url: "https://www.haptik.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "Enterprise conversational AI and WhatsApp chatbot platform built in India.",
+        descHi: "एंटरप्राइज कन्वर्सेशनल AI और व्हाट्सएप चैटबॉट प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Yellow.ai",
+        url: "https://yellow.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "Autonomous customer service AI agents across voice and chat for global enterprises.",
+        descHi: "ग्राहक सेवा के लिए ऑटोनॉमस वॉइस और चैट AI एजेंट प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Uniphore",
+        url: "https://www.uniphore.com/",
+        category: "ai",
+        popular: true,
+        descEn: "Enterprise conversational AI, emotion AI, and workflow automation leader.",
+        descHi: "एंटरप्राइज कन्वर्सेशनल AI और वर्कफ़्लो ऑटोमेशन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Fractal AI",
+        url: "https://fractal.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "Global enterprise AI and decision-intelligence company founded in Mumbai.",
+        descHi: "एंटरप्राइज AI और डेटा एनालिटिक्स में अग्रणी भारतीय कंपनी।"
+      },
+      {
+        name: "Writesonic",
+        url: "https://writesonic.com/",
+        category: "ai",
+        popular: true,
+        descEn: "AI content creation, SEO writing, and conversational AI agent platform.",
+        descHi: "AI कंटेंट राइटिंग, SEO और चैटबॉट निर्माण प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "InVideo AI",
+        url: "https://invideo.io/",
+        category: "ai",
+        popular: true,
+        descEn: "Create full videos with script, voiceover, and subtitles using simple text prompts.",
+        descHi: "टेक्स्ट प्रॉम्प्ट से स्क्रिप्ट और वॉइसओवर के साथ वीडियो बनाने वाला AI टूल।"
+      },
+      {
+        name: "Murf AI",
+        url: "https://murf.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "Studio-quality AI voice generator and text-to-speech platform for creators and businesses.",
+        descHi: "स्टूडियो-क्वालिटी AI वॉइस जनरेटर और टेक्स्ट-टू-स्पीच प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Dubverse AI",
+        url: "https://dubverse.ai/",
+        category: "ai",
+        popular: true,
+        descEn: "AI video dubbing and subtitling platform across Indian and international languages.",
+        descHi: "भारतीय और विदेशी भाषाओं में AI वीडियो डबिंग और सबटाइटल प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Appsmith",
+        url: "https://www.appsmith.com/",
+        category: "ai",
+        popular: true,
+        descEn: "Open-source low-code framework to build internal business tools and dashboards rapidly.",
+        descHi: "इंटरनल बिज़नेस ऐप्स और डैशबोर्ड बनाने का ओपन-सोर्स लो-कोड प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Hoppscotch",
+        url: "https://hoppscotch.io/",
+        category: "ai",
+        popular: true,
+        descEn: "Open-source, lightweight, web-based API development ecosystem created in India.",
+        descHi: "भारत में निर्मित ओपन-सोर्स और तेज़ वेब-आधारित API टेस्टिंग टूल।"
+      },
+      {
+        name: "Bruno",
+        url: "https://www.usebruno.com/",
+        category: "ai",
+        popular: true,
+        descEn: "Fast, Git-friendly, open-source offline API client revolutionizing developer workflows.",
+        descHi: "तेज़ और Git-फ्रेंडली ओपन-सोर्स API क्लाइंट।"
+      },
+      {
+        name: "Plane",
+        url: "https://plane.so/",
+        category: "ai",
+        popular: true,
+        descEn: "Open-source project management and issue-tracking platform built in India.",
+        descHi: "भारत में निर्मित ओपन-सोर्स प्रोजेक्ट मैनेजमेंट और इश्यू-ट्रैकिंग टूल।"
+      },
+      {
+        name: "Gnani.ai",
+        url: "https://www.gnani.ai/",
+        category: "ai",
+        descEn: "Voice-first conversational AI and speech recognition platform supporting Indic languages.",
+        descHi: "भारतीय भाषाओं के लिए वॉइस AI और स्पीच रिकग्निशन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Karya",
+        url: "https://www.karya.in/",
+        category: "ai",
+        descEn: "Ethical AI data company creating high-quality Indian language speech and text datasets.",
+        descHi: "ग्रामीण भारत को जोड़कर भारतीय भाषा डेटा बनाने वाला एथिकल AI प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Anuvadini (AICTE)",
+        url: "https://anuvadini.aicte-india.org/",
+        category: "ai",
+        descEn: "AICTE's AI-based multilingual translation and voice tool for Indian education.",
+        descHi: "शिक्षा के लिए AICTE का AI आधारित बहुभाषी अनुवाद टूल।"
+      },
+      {
+        name: "Kaagaz Scanner",
+        url: "https://kaagaz.app/",
+        category: "ai",
+        descEn: "Made-in-India document scanner, PDF toolkit, and cloud storage app.",
+        descHi: "स्वदेशी डॉक्यूमेंट स्कैनर और PDF टूलकिट ऐप।"
+      },
+      {
+        name: "Lekhak App",
+        url: "https://lekhak.app/",
+        category: "ai",
+        descEn: "Indian AI writing assistant designed for effortless drafting and content creation.",
+        descHi: "तेज़ और सरल लेखन के लिए भारतीय AI राइटिंग असिस्टेंट।"
+      },
+      {
+        name: "Zoho Writer",
+        url: "https://www.zoho.com/writer/",
+        category: "ai",
+        descEn: "Collaborative cloud word processor and document automation suite.",
+        descHi: "ऑनलाइन डॉक्यूमेंट एडिटिंग और कोलैबोरेशन के लिए Zoho का वर्ड प्रोसेसर।"
+      },
+      {
+        name: "PixelBin",
+        url: "https://www.pixelbin.io/",
+        category: "ai",
+        descEn: "AI-powered image transformation, background removal, and digital asset optimization.",
+        descHi: "AI इमेज एडिटिंग, बैकग्राउंड रिमूवल और मीडिया ऑप्टिमाइजेशन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Simplified",
+        url: "https://simplified.com/",
+        category: "ai",
+        descEn: "All-in-one AI design, video editing, copywriting, and social media scheduling suite.",
+        descHi: "AI डिज़ाइन, वीडियो एडिटिंग और सोशल मीडिया कंटेंट बनाने का ऑल-इन-वन टूल।"
+      },
+      {
+        name: "Smallest.ai",
+        url: "https://smallest.ai/",
+        category: "ai",
+        descEn: "Ultra-fast, low-latency text-to-speech and real-time voice AI models.",
+        descHi: "अत्यंत तेज़ और रियल-टाइम टेक्स्ट-टू-स्पीच वॉइस AI मॉडल।"
+      },
+      {
+        name: "Beatoven.ai",
+        url: "https://www.beatoven.ai/",
+        category: "ai",
+        descEn: "AI royalty-free background music generator for video creators and podcasts.",
+        descHi: "वीडियो और पॉडकास्ट के लिए रॉयल्टी-फ्री AI म्यूजिक जनरेटर।"
+      },
+      {
+        name: "SlidesAI",
+        url: "https://www.slidesai.io/",
+        category: "ai",
+        descEn: "Generate professional presentation slides from plain text in seconds.",
+        descHi: "सामान्य टेक्स्ट से सेकंडों में प्रेजेंटेशन स्लाइड्स बनाने वाला AI टूल।"
+      },
+      {
+        name: "Bolna AI",
+        url: "https://www.bolna.dev/",
+        category: "ai",
+        descEn: "Voice AI agent platform for building human-like phone call workflows.",
+        descHi: "मानव जैसी फोन कॉल और वॉइस एजेंट बनाने का भारतीय प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Predis.ai",
+        url: "https://predis.ai/",
+        category: "ai",
+        descEn: "AI social media post, carousel, and ad creative generator.",
+        descHi: "सोशल मीडिया पोस्ट, रील्स और विज्ञापन बनाने वाला AI टूल।"
+      },
+      {
+        name: "Convin.ai",
+        url: "https://convin.ai/",
+        category: "ai",
+        descEn: "AI conversation intelligence and automated QA for contact centers.",
+        descHi: "कॉल सेंटर और सेल्स टीमों के लिए AI कन्वर्सेशन इंटेलिजेंस।"
+      },
+      {
+        name: "Spyne AI",
+        url: "https://www.spyne.ai/",
+        category: "ai",
+        descEn: "AI visual merchandising and studio editing for automotive and e-commerce.",
+        descHi: "ऑटोमोबाइल और ई-कॉमर्स के लिए AI विजुअल स्टूडियो।"
+      },
+      {
+        name: "Vue.ai",
+        url: "https://vue.ai/",
+        category: "ai",
+        descEn: "AI-powered retail automation and catalog intelligence platform.",
+        descHi: "रिटेल और फैशन ई-कॉमर्स के लिए AI ऑटोमेशन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Scalenut",
+        url: "https://www.scalenut.com/",
+        category: "ai",
+        descEn: "AI-powered SEO research and long-form content marketing platform.",
+        descHi: "AI आधारित SEO रिसर्च और कंटेंट मार्केटिंग प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Cropin",
+        url: "https://www.cropin.com/",
+        category: "ai",
+        descEn: "Global AgTech AI platform empowering smart farming and crop intelligence.",
+        descHi: "स्मार्ट खेती और फसल विश्लेषण के लिए भारतीय AgTech AI प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Locus",
+        url: "https://locus.sh/",
+        category: "ai",
+        descEn: "AI-driven supply chain optimization and last-mile logistics dispatch platform.",
+        descHi: "AI आधारित सप्लाई चेन और लॉजिस्टिक्स ऑप्टिमाइजेशन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Adalat AI",
+        url: "https://www.adalat.ai/",
+        category: "ai",
+        descEn: "AI tools built to enhance efficiency and transcription in Indian courts and legal workflows.",
+        descHi: "भारतीय अदालतों और कानूनी कार्यों की दक्षता बढ़ाने वाला AI प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "HackerEarth",
+        url: "https://www.hackerearth.com/",
+        category: "ai",
+        descEn: "Developer assessment, coding challenges, and hackathon platform.",
+        descHi: "कोडिंग चैलेंज, हैकाथॉन और डेवलपर असेसमेंट प्लेटफ़ॉर्म।"
+      },
+
+      // ==================== GOVERNMENT & DIGITAL PUBLIC INFRA ====================
+      {
+        name: "DigiLocker",
+        url: "https://www.digilocker.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official Indian cloud wallet for authentic digital Aadhaar, PAN, Driving License, and certificates.",
+        descHi: "आधार, पैन, ड्राइविंग लाइसेंस और प्रमाणपत्रों के लिए भारत सरकार का डिजिटल लॉकर।"
+      },
+      {
+        name: "UMANG",
+        url: "https://web.umang.gov.in/landing/",
+        category: "gov",
+        popular: true,
+        descEn: "Unified Mobile Application for New-age Governance — 1,500+ Central & State services in one app.",
+        descHi: "एक ही मंच पर 1,500+ केंद्र और राज्य सरकारी सेवाएं प्रदान करने वाला उमंग पोर्टल।"
+      },
+      {
+        name: "UIDAI (Aadhaar)",
+        url: "https://uidai.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official portal for Aadhaar card services, e-Aadhaar download, PVC card, and authentication.",
+        descHi: "आधार कार्ड सेवाओं, ई-आधार डाउनलोड और अपडेट का आधिकारिक पोर्टल।"
+      },
+      {
+        name: "ONDC",
+        url: "https://ondc.org/",
+        category: "gov",
+        popular: true,
+        descEn: "India's open digital commerce network democratizing e-commerce for small merchants.",
+        descHi: "छोटे व्यापारियों और खरीदारों को जोड़ने वाला भारत का ओपन ई-कॉमर्स नेटवर्क।"
+      },
+      {
+        name: "India Post",
+        url: "https://www.indiapost.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official portal of Department of Posts for speed post tracking, savings schemes, and parcel services.",
+        descHi: "भारतीय डाक विभाग का आधिकारिक पोर्टल — स्पीड पोस्ट ट्रैकिंग और बचत योजनाएं।"
+      },
+      {
+        name: "GeM (Government e-Marketplace)",
+        url: "https://gem.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "National public procurement portal connecting Indian sellers with government buyers.",
+        descHi: "सरकारी खरीद के लिए भारत का राष्ट्रीय ई-मार्केटप्लेस पोर्टल।"
+      },
+      {
+        name: "Sanchar Saathi",
+        url: "https://sancharsaathi.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "DoT citizen-centric portal to block lost phones, check mobile connections, and report fraud.",
+        descHi: "खोए हुए मोबाइल ब्लॉक करने और फर्जी सिम की जांच के लिए दूरसंचार विभाग का पोर्टल।"
+      },
+      {
+        name: "National Cyber Crime Portal",
+        url: "https://cybercrime.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official Govt. of India portal to report cyber crimes and online financial frauds.",
+        descHi: "साइबर अपराध और ऑनलाइन धोखाधड़ी की शिकायत दर्ज करने का राष्ट्रीय पोर्टल।"
+      },
+      {
+        name: "Startup India",
+        url: "https://www.startupindia.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Flagship Govt. of India hub for startup recognition, funding schemes, and mentorship.",
+        descHi: "भारतीय स्टार्टअप्स के पंजीकरण, फंडिंग और सरकारी योजनाओं का मुख्य पोर्टल।"
+      },
+      {
+        name: "Income Tax e-Filing",
+        url: "https://www.incometax.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official Income Tax Department portal for ITR filing, PAN-Aadhaar linking, and tax refunds.",
+        descHi: "इनकम टैक्स रिटर्न (ITR) दाखिल करने और पैन-आधार लिंकिंग का आधिकारिक पोर्टल।"
+      },
+      {
+        name: "GST Portal",
+        url: "https://www.gst.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Goods and Services Tax Network portal for GST registration, returns, and compliance.",
+        descHi: "जीएसटी पंजीकरण, रिटर्न दाखिल करने और कर अनुपालन का राष्ट्रीय पोर्टल।"
+      },
+      {
+        name: "EPFO Portal",
+        url: "https://www.epfindia.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official portal for PF passbook balance, UAN services, pension, and online PF claims.",
+        descHi: "पीएफ बैलेंस, पासबुक, UAN और ऑनलाइन क्लेम सेवाओं का आधिकारिक पोर्टल।"
+      },
+      {
+        name: "Parivahan Sewa",
+        url: "https://parivahan.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Ministry of Road Transport portal for Driving License, RC status, and e-Challan services.",
+        descHi: "ड्राइविंग लाइसेंस, वाहन पंजीकरण (RC) और ई-चालान सेवाओं का आधिकारिक पोर्टल।"
+      },
+      {
+        name: "Passport Seva",
+        url: "https://www.passportindia.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Ministry of External Affairs portal for online passport application and appointment booking.",
+        descHi: "नए पासपोर्ट आवेदन और नवीनीकरण के लिए विदेश मंत्रालय का आधिकारिक पोर्टल।"
+      },
+      {
+        name: "eCourts Services",
+        url: "https://services.ecourts.gov.in/",
+        category: "gov",
+        popular: true,
+        descEn: "Official Indian judiciary portal for case status, court orders, and cause lists.",
+        descHi: "केस स्टेटस, कोर्ट ऑर्डर और सुनवाई की जानकारी के लिए आधिकारिक ई-कोर्ट पोर्टल।"
+      },
+      {
+        name: "Open Government Data",
+        url: "https://www.data.gov.in/",
+        category: "gov",
+        descEn: "Official platform providing open access to datasets published by Indian ministries.",
+        descHi: "भारत सरकार के मंत्रालयों के ओपन डेटा सेट्स का आधिकारिक प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "National Career Service",
+        url: "https://ncs.gov.in/",
+        category: "gov",
+        descEn: "Ministry of Labour & Employment portal for job seekers, career counseling, and skill training.",
+        descHi: "रोजगार के अवसर, करियर काउंसलिंग और कौशल विकास का राष्ट्रीय पोर्टल।"
+      },
+      {
+        name: "Tele-Law",
+        url: "https://www.tele-law.in/",
+        category: "gov",
+        descEn: "Connecting citizens with panel lawyers via video/tele-conferencing for legal advice.",
+        descHi: "नागरिकों को वीडियो कॉन्फ्रेंसिंग के माध्यम से कानूनी सलाह देने वाला सरकारी पोर्टल।"
+      },
+      {
+        name: "Mausam (IMD Weather)",
+        url: "https://mausam.imd.gov.in/",
+        category: "gov",
+        descEn: "India Meteorological Department portal for weather forecasts and cyclone alerts.",
+        descHi: "भारतीय मौसम विज्ञान विभाग (IMD) का मौसम पूर्वानुमान और चेतावनी पोर्टल।"
+      },
+      {
+        name: "National Consumer Helpline",
+        url: "https://consumerhelpline.gov.in/",
+        category: "gov",
+        descEn: "Official portal for consumer grievance redressal and awareness.",
+        descHi: "उपभोक्ता शिकायत निवारण और जागरूकता के लिए राष्ट्रीय हेल्पलाइन पोर्टल।"
+      },
+      {
+        name: "Know India",
+        url: "https://knowindia.india.gov.in/",
+        category: "gov",
+        descEn: "Comprehensive official resource on Indian history, constitution, states, and national symbols.",
+        descHi: "भारत के संविधान, इतिहास, राज्यों और राष्ट्रीय प्रतीकों की आधिकारिक जानकारी।"
+      },
+      {
+        name: "Cyber Swachhta Kendra",
+        url: "https://www.csk.gov.in/",
+        category: "gov",
+        descEn: "CERT-In's Botnet Cleaning and Malware Analysis Centre offering free security tools.",
+        descHi: "CERT-In का साइबर सुरक्षा और मुफ्त एंटी-मैलवेयर टूल केंद्र।"
+      },
+      {
+        name: "C-DAC",
+        url: "https://www.cdac.in/",
+        category: "gov",
+        descEn: "Centre for Development of Advanced Computing — India's premier R&D organization in IT & supercomputing.",
+        descHi: "सुपरकंप्यूटिंग और उन्नत आईटी अनुसंधान के लिए भारत का प्रमुख संस्थान।"
+      },
+      {
+        name: "Landeed",
+        url: "https://www.landeed.com/",
+        category: "gov",
+        descEn: "Instant property title search and land records verification platform across Indian states.",
+        descHi: "भारतीय राज्यों के भूमि रिकॉर्ड और प्रॉपर्टी दस्तावेज़ जांचने का प्लेटफ़ॉर्म।"
+      },
+
+      // ==================== E-COMMERCE & RETAIL ====================
+      {
+        name: "Flipkart",
+        url: "https://www.flipkart.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "India's homegrown e-commerce giant for electronics, fashion, appliances, and daily essentials.",
+        descHi: "इलेक्ट्रॉनिक्स, फैशन और घरेलू सामान का भारत का सबसे बड़ा ई-कॉमर्स प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Zomato",
+        url: "https://www.zomato.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "India's leading food delivery and restaurant discovery platform.",
+        descHi: "भारत का अग्रणी फूड डिलीवरी और रेस्टोरेंट डिस्कवरी प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Swiggy",
+        url: "https://www.swiggy.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "On-demand food delivery and Instamart quick commerce across India.",
+        descHi: "ऑन-डिमांड फूड डिलीवरी और इंस्टामार्ट क्विक कॉमर्स प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Blinkit",
+        url: "https://blinkit.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "10-minute grocery and daily essentials quick commerce platform.",
+        descHi: "मिनटों में किराना और रोज़मर्रा का सामान पहुंचाने वाला क्विक कॉमर्स ऐप।"
+      },
+      {
+        name: "Zepto",
+        url: "https://www.zepto.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Superfast 10-minute grocery and essentials delivery across major Indian cities.",
+        descHi: "तेज़ रफ़्तार 10-मिनट ग्रोसरी और दैनिक सामान डिलीवरी प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Meesho",
+        url: "https://www.meesho.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Value-focused social e-commerce marketplace empowering millions of Indian small businesses.",
+        descHi: "लाखों भारतीय छोटे विक्रेताओं और किफायती शॉपिंग का प्रमुख ई-कॉमर्स मंच।"
+      },
+      {
+        name: "Myntra",
+        url: "https://www.myntra.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "India's leading online fashion, apparel, footwear, and lifestyle shopping destination.",
+        descHi: "फैशन, कपड़ों, फुटवियर और लाइफस्टाइल शॉपिंग का भारत का प्रमुख प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Ajio",
+        url: "https://www.ajio.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Reliance's curated fashion and lifestyle e-commerce store featuring Indian & global trends.",
+        descHi: "रिलायंस का प्रमुख फैशन और लाइफस्टाइल ऑनलाइन शॉपिंग स्टोर।"
+      },
+      {
+        name: "BigBasket",
+        url: "https://www.bigbasket.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Tata Enterprise online supermarket for fresh fruits, vegetables, and household groceries.",
+        descHi: "ताज़े फल, सब्जियां और किराना सामान पहुंचाने वाला टाटा का ऑनलाइन सुपरमार्केट।"
+      },
+      {
+        name: "JioMart",
+        url: "https://www.jiomart.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Pan-India online grocery, electronics, and fashion shopping platform by Reliance Retail.",
+        descHi: "रिलायंस रिटेल का देशव्यापी ऑनलाइन किराना और शॉपिंग प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Nykaa",
+        url: "https://www.nykaa.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "India's premier beauty, wellness, and fashion e-commerce destination.",
+        descHi: "ब्यूटी, वेलनेस और फैशन शॉपिंग का भारत का प्रमुख प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "IndiaMART",
+        url: "https://www.indiamart.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "India's largest online B2B marketplace connecting buyers with manufacturers and suppliers.",
+        descHi: "भारत का सबसे बड़ा ऑनलाइन B2B मार्केटप्लेस और व्यापार नेटवर्क।"
+      },
+      {
+        name: "Lenskart",
+        url: "https://www.lenskart.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Leading Indian omnichannel eyewear and vision care brand.",
+        descHi: "भारत का अग्रणी आईवियर, चश्मे और विज़न केयर ब्रांड।"
+      },
+      {
+        name: "Titan",
+        url: "https://www.titan.co.in/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Iconic Tata group brand for watches, jewellery, eyewear, and lifestyle accessories.",
+        descHi: "घड़ियों, आभूषणों और लाइफस्टाइल एक्सेसरीज़ का प्रतिष्ठित भारतीय ब्रांड।"
+      },
+      {
+        name: "Croma",
+        url: "https://www.croma.com/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Tata's omnichannel electronics and home appliances retail store.",
+        descHi: "टाटा का प्रमुख इलेक्ट्रॉनिक्स और होम अप्लायंसेज रिटेल स्टोर।"
+      },
+      {
+        name: "Reliance Digital",
+        url: "https://www.reliancedigital.in/",
+        category: "ecommerce",
+        popular: true,
+        descEn: "Consumer electronics, smartphones, laptops, and appliances shopping destination.",
+        descHi: "स्मार्टफोन, लैपटॉप और इलेक्ट्रॉनिक्स शॉपिंग का प्रमुख भारतीय स्टोर।"
+      },
+      {
+        name: "Fabindia",
+        url: "https://www.fabindia.com/",
+        category: "ecommerce",
+        descEn: "Celebrating Indian handloom, ethnic wear, organic food, and artisan crafts.",
+        descHi: "भारतीय हथकरघा, एथनिक परिधान और हस्तशिल्प को बढ़ावा देने वाला ब्रांड।"
+      },
+      {
+        name: "Sabyasachi",
+        url: "https://www.sabyasachi.com/",
+        category: "ecommerce",
+        descEn: "Globally acclaimed Indian luxury couture, bridal wear, and heritage jewelry house.",
+        descHi: "विश्व प्रसिद्ध भारतीय लक्ज़री फैशन और हेरिटेज ज्वेलरी ब्रांड।"
+      },
+      {
+        name: "MouthShut",
+        url: "https://www.mouthshut.com/",
+        category: "ecommerce",
+        descEn: "India's trusted consumer review and product feedback community.",
+        descHi: "भारतीय उपभोक्ताओं की समीक्षा और उत्पाद रेटिंग का विश्वसनीय मंच।"
+      },
+
+      // ==================== FINANCE & FINTECH ====================
+      {
+        name: "NPCI (UPI & RuPay)",
+        url: "https://www.npci.org.in/",
+        category: "finance",
+        popular: true,
+        descEn: "National Payments Corporation of India powering UPI, RuPay, BHIM, FASTag, and IMPS.",
+        descHi: "UPI, RuPay, BHIM और FASTag का संचालन करने वाला भारतीय राष्ट्रीय भुगतान निगम।"
+      },
+      {
+        name: "PhonePe",
+        url: "https://www.phonepe.com/",
+        category: "finance",
+        popular: true,
+        descEn: "India's largest digital payments, UPI, insurance, and financial services super-app.",
+        descHi: "भारत का सबसे बड़ा डिजिटल पेमेंट, UPI और वित्तीय सेवा ऐप।"
+      },
+      {
+        name: "Paytm",
+        url: "https://paytm.com/",
+        category: "finance",
+        popular: true,
+        descEn: "Pioneering Indian mobile payments, QR commerce, ticketing, and financial services platform.",
+        descHi: "मोबाइल पेमेंट, QR कोड और डिजिटल बैंकिंग सेवाओं का अग्रणी भारतीय प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Zerodha",
+        url: "https://zerodha.com/",
+        category: "finance",
+        popular: true,
+        descEn: "India's largest retail stockbroker offering zero-brokerage equity delivery and Kite trading.",
+        descHi: "शेयर बाजार निवेश और ट्रेडिंग के लिए भारत का सबसे बड़ा रिटेल स्टॉकब्रोकर।"
+      },
+      {
+        name: "Groww",
+        url: "https://groww.in/",
+        category: "finance",
+        popular: true,
+        descEn: "Simple, intuitive Indian investment platform for stocks, mutual funds, IPOs, and ETFs.",
+        descHi: "स्टॉक्स, म्यूचुअल फंड और IPO में निवेश करने का लोकप्रिय भारतीय ऐप।"
+      },
+      {
+        name: "Razorpay",
+        url: "https://razorpay.com/",
+        category: "finance",
+        popular: true,
+        descEn: "Full-stack Indian payment gateway, business banking, and payroll automation suite.",
+        descHi: "ऑनलाइन बिज़नेस पेमेंट गेटवे और डिजिटल बैंकिंग का प्रमुख भारतीय प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "CRED",
+        url: "https://cred.club/",
+        category: "finance",
+        popular: true,
+        descEn: "Members-only Indian fintech app for credit card bill payments, UPI, and rewards.",
+        descHi: "क्रेडिट कार्ड बिल पेमेंट, UPI और रिवॉर्ड्स के लिए लोकप्रिय भारतीय फिनटेक ऐप।"
+      },
+      {
+        name: "BharatPe",
+        url: "https://bharatpe.com/",
+        category: "finance",
+        popular: true,
+        descEn: "Merchant QR payments, POS machines, and business loans empowering Indian shopkeepers.",
+        descHi: "भारतीय दुकानदारों के लिए QR पेमेंट, POS मशीन और बिज़नेस लोन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Policybazaar",
+        url: "https://www.policybazaar.com/",
+        category: "finance",
+        popular: true,
+        descEn: "India's largest online insurance aggregator for health, life, term, and motor insurance.",
+        descHi: "स्वास्थ्य, जीवन और वाहन बीमा की तुलना और खरीद का भारत का सबसे बड़ा पोर्टल।"
+      },
+      {
+        name: "Paisabazaar",
+        url: "https://www.paisabazaar.com/",
+        category: "finance",
+        popular: true,
+        descEn: "India's leading marketplace for free credit scores, personal loans, and credit cards.",
+        descHi: "मुफ्त क्रेडिट स्कोर, पर्सनल लोन और क्रेडिट कार्ड का प्रमुख ऑनलाइन मार्केटप्लेस।"
+      },
+      {
+        name: "BHIM UPI",
+        url: "https://www.bhimupi.org.in/",
+        category: "finance",
+        popular: true,
+        descEn: "Bharat Interface for Money — official instant bank-to-bank UPI payment app by NPCI.",
+        descHi: "NPCI द्वारा विकसित भारत का आधिकारिक तत्काल UPI भुगतान ऐप।"
+      },
+      {
+        name: "ClearTax",
+        url: "https://cleartax.in/",
+        category: "finance",
+        popular: true,
+        descEn: "India's leading income tax filing, GST compliance, and wealth management platform.",
+        descHi: "इनकम टैक्स रिटर्न (ITR) और GST फाइलिंग का भारत का प्रमुख प्लेटफ़ॉर्म।"
+      },
+
+      // ==================== SOCIAL & GAMING ====================
+      {
+        name: "JioCinema",
+        url: "https://www.jiocinema.com/",
+        category: "social",
+        popular: true,
+        descEn: "India's massive OTT streaming destination for live cricket, movies, and entertainment.",
+        descHi: "लाइव क्रिकेट, फिल्मों और मनोरंजन का भारत का प्रमुख OTT स्ट्रीमिंग प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "ShareChat",
+        url: "https://sharechat.com/",
+        category: "social",
+        popular: true,
+        descEn: "India's leading regional-language social media network across 15+ Indic languages.",
+        descHi: "15+ भारतीय भाषाओं में भारत का सबसे बड़ा क्षेत्रीय सोशल मीडिया नेटवर्क।"
+      },
+      {
+        name: "Moj",
+        url: "https://mojapp.in/",
+        category: "social",
+        popular: true,
+        descEn: "Popular Indian short-video entertainment and creator community app.",
+        descHi: "भारत का लोकप्रिय शॉर्ट-वीडियो मनोरंजन और क्रिएटर ऐप।"
+      },
+      {
+        name: "MX Player",
+        url: "https://www.mxplayer.in/",
+        category: "social",
+        popular: true,
+        descEn: "Free OTT video streaming platform for web series, movies, and regional shows.",
+        descHi: "वेब सीरीज़, फिल्मों और क्षेत्रीय शो का लोकप्रिय भारतीय वीडियो स्ट्रीमिंग प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "ZEE5",
+        url: "https://www.zee5.com/",
+        category: "social",
+        popular: true,
+        descEn: "Multilingual Indian OTT platform featuring originals, movies, and live TV in 12 languages.",
+        descHi: "12 भाषाओं में ओरिजिनल वेब सीरीज़, फिल्में और लाइव टीवी दिखाने वाला OTT प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "SonyLIV",
+        url: "https://www.sonyliv.com/",
+        category: "social",
+        popular: true,
+        descEn: "Indian streaming platform for live sports, acclaimed web series, and reality shows.",
+        descHi: "लाइव स्पोर्ट्स, वेब सीरीज़ और लोकप्रिय टीवी शो का प्रमुख भारतीय स्ट्रीमिंग ऐप।"
+      },
+      {
+        name: "JioSaavn",
+        url: "https://www.jiosaavn.com/",
+        category: "social",
+        popular: true,
+        descEn: "India's premier music and podcast streaming app across Bollywood and regional languages.",
+        descHi: "बॉलीवुड और क्षेत्रीय भाषाओं के संगीत और पॉडकास्ट का प्रमुख भारतीय ऐप।"
+      },
+      {
+        name: "Kuku FM",
+        url: "https://kukufm.com/",
+        category: "social",
+        popular: true,
+        descEn: "Leading Indian audio storytelling, audiobooks, and podcast platform in Hindi & regional languages.",
+        descHi: "हिंदी और क्षेत्रीय भाषाओं में ऑडियोबुक और कहानियों का प्रमुख प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Pratilipi",
+        url: "https://pratilipi.com/",
+        category: "social",
+        popular: true,
+        descEn: "India's largest self-publishing and reading platform for stories in 12 Indian languages.",
+        descHi: "12 भारतीय भाषाओं में कहानियां पढ़ने और लिखने का भारत का सबसे बड़ा प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Dailyhunt",
+        url: "https://m.dailyhunt.in/",
+        category: "social",
+        popular: true,
+        descEn: "India's #1 local language news, e-papers, and viral content discovery aggregator.",
+        descHi: "भारतीय भाषाओं में ताज़ा खबरें और ई-पेपर पढ़ने का देश का प्रमुख न्यूज़ ऐप।"
+      },
+      {
+        name: "Inshorts",
+        url: "https://inshorts.com/",
+        category: "social",
+        popular: true,
+        descEn: "Crisp 60-word news summaries curated from trusted Indian and global publications.",
+        descHi: "देश-दुनिया की प्रमुख खबरें संक्षिप्त 60 शब्दों में प्रस्तुत करने वाला भारतीय ऐप।"
+      },
+      {
+        name: "WinZO Games",
+        url: "https://www.winzogames.com/",
+        category: "social",
+        popular: true,
+        descEn: "India's largest vernacular social gaming and interactive entertainment platform.",
+        descHi: "भारत का सबसे बड़ा क्षेत्रीय सोशल गेमिंग और मनोरंजन प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Nazara Technologies",
+        url: "https://www.nazara.com/",
+        category: "social",
+        popular: true,
+        descEn: "India's leading publicly listed gaming and esports media powerhouse.",
+        descHi: "भारत की अग्रणी गेमिंग और ई-स्पोर्ट्स मीडिया कंपनी।"
+      },
+      {
+        name: "Rooter",
+        url: "https://rooter.gg/",
+        category: "social",
+        popular: true,
+        descEn: "India's biggest game streaming and esports community platform.",
+        descHi: "भारत का सबसे बड़ा गेम स्ट्रीमिंग और ई-स्पोर्ट्स कम्युनिटी प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Public App",
+        url: "https://public.app/",
+        category: "social",
+        popular: true,
+        descEn: "Location-based local news and hyperlocal community updates app across India.",
+        descHi: "आपके शहर और क्षेत्र की ताज़ा स्थानीय खबरें दिखाने वाला भारतीय ऐप।"
+      },
+      {
+        name: "Chingari",
+        url: "https://chingari.io/",
+        category: "social",
+        descEn: "Homegrown Indian short-video social entertainment platform.",
+        descHi: "स्वदेशी भारतीय शॉर्ट-वीडियो और सोशल एंटरटेनमेंट प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "JioChat",
+        url: "https://www.jio.com/apps/jiochat/",
+        category: "social",
+        descEn: "Indian instant messaging, HD voice/video calling, and channel app.",
+        descHi: "भारतीय इंस्टेंट मैसेजिंग और HD वॉइस/वीडियो कॉलिंग ऐप।"
+      },
+      {
+        name: "JioMeet",
+        url: "https://jiomeetpro.jio.com/",
+        category: "social",
+        descEn: "Made-in-India enterprise video conferencing and virtual meeting platform.",
+        descHi: "भारत में निर्मित वीडियो कॉन्फ्रेंसिंग और वर्चुअल मीटिंग प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Arattai (Zoho)",
+        url: "https://www.arattai.in/",
+        category: "social",
+        descEn: "Privacy-first instant messaging and calling app built in India by Zoho.",
+        descHi: "Zoho द्वारा भारत में निर्मित सुरक्षित इंस्टेंट मैसेजिंग और कॉलिंग ऐप।"
+      },
+      {
+        name: "Elyments",
+        url: "https://www.elyments.com/",
+        category: "social",
+        descEn: "Made-in-India social networking and communication super-app.",
+        descHi: "स्वदेशी भारतीय सोशल नेटवर्किंग और कम्युनिकेशन ऐप।"
+      },
+      {
+        name: "Kutumb",
+        url: "https://kutumb.app/",
+        category: "social",
+        descEn: "Social network for Indian communities, associations, and interest groups.",
+        descHi: "भारतीय समुदायों और संगठनों के लिए समर्पित सोशल नेटवर्क।"
+      },
+      {
+        name: "Pepul",
+        url: "https://www.pepul.com/",
+        category: "social",
+        descEn: "Privacy-focused Indian social media platform connecting positive communities.",
+        descHi: "सुरक्षित और सकारात्मक भारतीय सोशल मीडिया प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "WAVES (Prasar Bharati)",
+        url: "https://wavespb.com/",
+        category: "social",
+        descEn: "Prasar Bharati's official family entertainment OTT platform celebrating Indian culture.",
+        descHi: "प्रसार भारती का आधिकारिक OTT प्लेटफ़ॉर्म — भारतीय संस्कृति और मनोरंजन।"
+      },
+      {
+        name: "Rediff",
+        url: "https://www.rediff.com/",
+        category: "social",
+        descEn: "One of India's pioneering news, email, and digital information portals.",
+        descHi: "भारत के सबसे शुरुआती समाचार, ईमेल और डिजिटल पोर्टल्स में से एक।"
+      },
+
+      // ==================== TRAVEL & MOBILITY ====================
+      {
+        name: "IRCTC",
+        url: "https://www.irctc.co.in/",
+        category: "travel",
+        popular: true,
+        descEn: "Official Indian Railways portal for train ticket booking, PNR status, and rail tourism.",
+        descHi: "भारतीय रेलवे की ट्रेन टिकट बुकिंग, PNR स्टेटस और पर्यटन का आधिकारिक पोर्टल।"
+      },
+      {
+        name: "Mappls (MapmyIndia)",
+        url: "https://www.mappls.com/",
+        category: "travel",
+        popular: true,
+        descEn: "India's indigenous hyper-local maps, GPS navigation, and geospatial portal.",
+        descHi: "भारत का अपना स्वदेशी नेविगेशन, मैप्स और डिजिटल एड्रेस प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Bhuvan (ISRO)",
+        url: "https://bhuvan.nrsc.gov.in/",
+        category: "travel",
+        popular: true,
+        descEn: "ISRO's Indian Geo-Platform showcasing satellite imagery, 3D maps, and earth observation data.",
+        descHi: "ISRO का भारतीय जियो-प्लेटफ़ॉर्म — सैटेलाइट इमेजरी और 3D मानचित्र।"
+      },
+      {
+        name: "MakeMyTrip",
+        url: "https://www.makemytrip.com/",
+        category: "travel",
+        popular: true,
+        descEn: "India's leading online travel company for flights, hotels, holiday packages, and buses.",
+        descHi: "फ्लाइट, होटल, हॉलिडे पैकेज और बस बुकिंग की भारत की प्रमुख ट्रैवल कंपनी।"
+      },
+      {
+        name: "Ola Cabs",
+        url: "https://www.olacabs.com/",
+        category: "travel",
+        popular: true,
+        descEn: "India's largest ride-hailing mobility app for cabs, autos, and outstation rentals.",
+        descHi: "कैब, ऑटो और आउटस्टेशन यात्रा के लिए भारत का सबसे बड़ा राइड-हेलिंग ऐप।"
+      },
+      {
+        name: "Rapido",
+        url: "https://www.rapido.bike/",
+        category: "travel",
+        popular: true,
+        descEn: "India's largest bike-taxi, auto, and affordable last-mile urban commute platform.",
+        descHi: "बाइक-टैक्सी, ऑटो और किफायती शहरी यात्रा का भारत का प्रमुख प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "redBus",
+        url: "https://www.redbus.in/",
+        category: "travel",
+        popular: true,
+        descEn: "World's largest online bus ticketing platform headquartered in Bengaluru.",
+        descHi: "ऑनलाइन बस टिकट बुकिंग का भारत का सबसे बड़ा और विश्वसनीय प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "ixigo",
+        url: "https://www.ixigo.com/",
+        category: "travel",
+        popular: true,
+        descEn: "AI-based Indian travel app for train PNR prediction, flight deals, and bus bookings.",
+        descHi: "ट्रेन PNR स्टेटस, फ्लाइट टिकट और बस बुकिंग का लोकप्रिय भारतीय ट्रैवल ऐप।"
+      },
+      {
+        name: "EaseMyTrip",
+        url: "https://www.easemytrip.com/",
+        category: "travel",
+        popular: true,
+        descEn: "Zero-convenience-fee Indian online travel booking portal for flights, hotels, and trains.",
+        descHi: "फ्लाइट, होटल और ट्रेन टिकट बुकिंग का प्रमुख भारतीय ट्रैवल पोर्टल।"
+      },
+      {
+        name: "OYO Rooms",
+        url: "https://www.oyorooms.com/",
+        category: "travel",
+        popular: true,
+        descEn: "India's largest hospitality chain offering standardized budget hotels and homes.",
+        descHi: "भारत और विदेशों में किफायती होटल और स्टे बुकिंग का सबसे बड़ा नेटवर्क।"
+      },
+      {
+        name: "IndiGo",
+        url: "https://www.goindigo.in/",
+        category: "travel",
+        popular: true,
+        descEn: "India's largest passenger airline connecting domestic and international destinations.",
+        descHi: "घरेलू और अंतर्राष्ट्रीय उड़ानों के लिए भारत की सबसे बड़ी एयरलाइन।"
+      },
+      {
+        name: "Air India",
+        url: "https://www.airindia.com/",
+        category: "travel",
+        popular: true,
+        descEn: "India's iconic full-service global airline operated by the Tata Group.",
+        descHi: "टाटा समूह द्वारा संचालित भारत की प्रतिष्ठित वैश्विक एयरलाइन।"
+      },
+
+      // ==================== EDTECH & RESEARCH ====================
+      {
+        name: "SWAYAM",
+        url: "https://swayam.gov.in/",
+        category: "edtech",
+        popular: true,
+        descEn: "Govt. of India's national MOOC platform offering free online courses from top universities.",
+        descHi: "भारत सरकार का राष्ट्रीय ऑनलाइन शिक्षा प्लेटफ़ॉर्म — शीर्ष विश्वविद्यालयों के मुफ्त कोर्स।"
+      },
+      {
+        name: "NPTEL (IITs & IISc)",
+        url: "https://nptel.ac.in/",
+        category: "edtech",
+        popular: true,
+        descEn: "Joint initiative of IITs and IISc providing world-class engineering and science video courses.",
+        descHi: "IIT और IISc द्वारा इंजीनियरिंग और विज्ञान के मुफ्त वीडियो कोर्स।"
+      },
+      {
+        name: "Physics Wallah",
+        url: "https://www.pw.live/",
+        category: "edtech",
+        popular: true,
+        descEn: "India's most affordable EdTech unicorn for JEE, NEET, UPSC, and skill courses.",
+        descHi: "JEE, NEET, UPSC और प्रतियोगी परीक्षाओं की किफायती तैयारी का प्रमुख भारतीय मंच।"
+      },
+      {
+        name: "Naukri.com",
+        url: "https://www.naukri.com/",
+        category: "edtech",
+        popular: true,
+        descEn: "India's #1 job portal connecting millions of job seekers with top recruiters.",
+        descHi: "नौकरी खोजने वालों और कंपनियों को जोड़ने वाला भारत का नंबर-1 जॉब पोर्टल।"
+      },
+      {
+        name: "Internshala",
+        url: "https://internshala.com/",
+        category: "edtech",
+        popular: true,
+        descEn: "India's largest internship, fresher jobs, and online career skills training platform.",
+        descHi: "छात्रों के लिए इंटर्नशिप, फ्रेशर जॉब्स और स्किल ट्रेनिंग का भारत का सबसे बड़ा मंच।"
+      },
+      {
+        name: "GeeksforGeeks",
+        url: "https://www.geeksforgeeks.org/",
+        category: "edtech",
+        popular: true,
+        descEn: "Computer science portal for coding tutorials, DSA interview prep, and tech courses.",
+        descHi: "कोडिंग, डेटा स्ट्रक्चर और सॉफ्टवेयर इंटरव्यू की तैयारी का प्रमुख भारतीय पोर्टल।"
+      },
+      {
+        name: "NDL India",
+        url: "https://ndl.iitkgp.ac.in/",
+        category: "edtech",
+        popular: true,
+        descEn: "IIT Kharagpur's virtual repository hosting millions of books, papers, and learning resources.",
+        descHi: "IIT खड़गपुर द्वारा संचालित लाखों किताबों और शोध पत्रों की राष्ट्रीय डिजिटल लाइब्रेरी।"
+      },
+      {
+        name: "Shodhganga",
+        url: "https://shodhganga.inflibnet.ac.in/",
+        category: "edtech",
+        popular: true,
+        descEn: "Digital reservoir of Indian Ph.D. theses and dissertations across universities.",
+        descHi: "भारतीय विश्वविद्यालयों के Ph.D. शोध प्रबंधों (Theses) का राष्ट्रीय डिजिटल भंडार।"
+      },
+      {
+        name: "Rekhta",
+        url: "https://www.rekhta.org/",
+        category: "edtech",
+        popular: true,
+        descEn: "World's largest digital archive of Urdu poetry, ghazals, literature, and dictionary.",
+        descHi: "उर्दू शायरी, ग़ज़लों और साहित्य का विश्व का सबसे बड़ा डिजिटल संग्रह।"
+      },
+      {
+        name: "Indian Culture Portal",
+        url: "https://www.indianculture.gov.in/",
+        category: "edtech",
+        popular: true,
+        descEn: "Ministry of Culture's digital portal showcasing rare books, manuscripts, museums, and heritage.",
+        descHi: "संस्कृति मंत्रालय का आधिकारिक पोर्टल — दुर्लभ पांडुलिपियां, संग्रहालय और विरासत।"
+      },
+      {
+        name: "TIFR",
+        url: "https://www.tifr.res.in/",
+        category: "edtech",
+        popular: true,
+        descEn: "India's premier national centre for advanced research in physics, mathematics, and sciences.",
+        descHi: "भौतिकी, गणित और विज्ञान में उन्नत अनुसंधान का भारत का प्रमुख राष्ट्रीय संस्थान।"
+      },
+      {
+        name: "Sahapedia",
+        url: "https://www.sahapedia.org/",
+        category: "edtech",
+        descEn: "Open encyclopedic resource on Indian arts, culture, history, and heritage.",
+        descHi: "भारतीय कला, संस्कृति, इतिहास और विरासत का विश्वकोश।"
+      },
+      {
+        name: "Kavita Kosh",
+        url: "http://kavitakosh.org/",
+        category: "edtech",
+        descEn: "Largest online encyclopedia of Hindi and Indian language poetry.",
+        descHi: "हिंदी और भारतीय भाषाओं की कविताओं का विशाल ऑनलाइन संग्रह।"
+      },
+      {
+        name: "Abhilekh Patal",
+        url: "https://www.abhilekh-patal.in/",
+        category: "edtech",
+        descEn: "Digital portal of the National Archives of India for historical records and manuscripts.",
+        descHi: "भारतीय राष्ट्रीय अभिलेखागार के ऐतिहासिक दस्तावेज़ों का डिजिटल पोर्टल।"
+      },
+      {
+        name: "Vikaspedia",
+        url: "https://vikaspedia.in/",
+        category: "edtech",
+        descEn: "Multilingual knowledge portal covering agriculture, health, education, and social welfare.",
+        descHi: "कृषि, स्वास्थ्य, शिक्षा और समाज कल्याण की बहुभाषी ज्ञान वेबसाइट।"
+      },
+
+      // ==================== CLOUD & HARDWARE ====================
+      {
+        name: "Ulaa Browser (Zoho)",
+        url: "https://ulaa.com/",
+        category: "cloud",
+        popular: true,
+        descEn: "Privacy-first Indian web browser by Zoho with built-in ad-blocker and multi-mode browsing.",
+        descHi: "Zoho द्वारा निर्मित प्राइवेसी-फर्स्ट भारतीय वेब ब्राउज़र।"
+      },
+      {
+        name: "Indus Appstore",
+        url: "https://www.indusappstore.com/",
+        category: "cloud",
+        popular: true,
+        descEn: "Made-in-India Android app marketplace supporting 12 Indian languages.",
+        descHi: "12 भारतीय भाषाओं को सपोर्ट करने वाला स्वदेशी एंड्रॉइड ऐप स्टोर।"
+      },
+      {
+        name: "E2E Networks",
+        url: "https://www.e2enetworks.com/",
+        category: "cloud",
+        popular: true,
+        descEn: "Leading NSE-listed Indian sovereign cloud and NVIDIA GPU infrastructure provider.",
+        descHi: "भारत का प्रमुख सॉवरेन क्लाउड और GPU इन्फ्रास्ट्रक्चर प्रदाता।"
+      },
+      {
+        name: "boAt Lifestyle",
+        url: "https://www.boat-lifestyle.com/",
+        category: "cloud",
+        popular: true,
+        descEn: "India's #1 audio wearables, earbuds, headphones, and smartwatch brand.",
+        descHi: "ईयरबड्स, हेडफ़ोन और स्मार्टवॉच का भारत का नंबर-1 इलेक्ट्रॉनिक्स ब्रांड।"
+      },
+      {
+        name: "Noise",
+        url: "https://www.gonoise.com/",
+        category: "cloud",
+        popular: true,
+        descEn: "Leading Indian smartwatch and wireless audio wearable technology brand.",
+        descHi: "स्मार्टवॉच और वायरलेस ऑडियो का अग्रणी भारतीय टेक ब्रांड।"
+      },
+      {
+        name: "JarvisLabs.ai",
+        url: "https://jarvislabs.ai/in",
+        category: "cloud",
+        popular: true,
+        descEn: "Affordable, instant cloud GPU instances for AI/ML researchers and developers in India.",
+        descHi: "AI/ML डेवलपर्स के लिए तेज़ और किफायती भारतीय क्लाउड GPU प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "BigRock",
+        url: "https://www.bigrock.in/",
+        category: "cloud",
+        popular: true,
+        descEn: "Popular Indian domain registration, web hosting, and business email provider.",
+        descHi: "डोमेन रजिस्ट्रेशन और वेब होस्टिंग का लोकप्रिय भारतीय प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "MilesWeb",
+        url: "https://www.milesweb.in/",
+        category: "cloud",
+        popular: true,
+        descEn: "Leading Indian web hosting, VPS, and managed cloud server company.",
+        descHi: "भारत की अग्रणी वेब होस्टिंग, VPS और क्लाउड सर्वर कंपनी।"
+      },
+      {
+        name: "Robu.in",
+        url: "https://robu.in/",
+        category: "cloud",
+        popular: true,
+        descEn: "India's largest online store for robotics, drones, Raspberry Pi, Arduino, and IoT parts.",
+        descHi: "रोबोटिक्स, ड्रोन, Arduino और IoT कंपोनेंट्स का भारत का सबसे बड़ा स्टोर।"
+      },
+      {
+        name: "DigiBoxx",
+        url: "https://www.digiboxx.com/",
+        category: "cloud",
+        descEn: "Indian cloud file storage and sharing platform with data residency in India.",
+        descHi: "भारत में डेटा सुरक्षित रखने वाला स्वदेशी क्लाउड स्टोरेज प्लेटफ़ॉर्म।"
+      },
+
+      // ==================== HEALTHCARE & WELLNESS ====================
+      {
+        name: "eSanjeevani",
+        url: "https://esanjeevani.mohfw.gov.in/",
+        category: "health",
+        popular: true,
+        descEn: "Govt. of India's free national telemedicine service connecting patients with doctors online.",
+        descHi: "भारत सरकार की मुफ्त राष्ट्रीय टेलीमेडिसिन सेवा — डॉक्टरों से ऑनलाइन परामर्श।"
+      },
+      {
+        name: "Tata 1mg",
+        url: "https://www.1mg.com/",
+        category: "health",
+        popular: true,
+        descEn: "India's trusted digital health platform for online medicines, lab tests, and doctor consults.",
+        descHi: "ऑनलाइन दवाइयों, लैब टेस्ट और डॉक्टर परामर्श का टाटा का विश्वसनीय हेल्थ प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Practo",
+        url: "https://www.practo.com/",
+        category: "health",
+        popular: true,
+        descEn: "India's leading doctor appointment booking, teleconsultation, and health records platform.",
+        descHi: "डॉक्टर अपॉइंटमेंट बुकिंग और ऑनलाइन परामर्श का भारत का प्रमुख प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "PharmEasy",
+        url: "https://pharmeasy.in/",
+        category: "health",
+        popular: true,
+        descEn: "Online pharmacy, diagnostic lab test booking, and healthcare delivery across India.",
+        descHi: "ऑनलाइन फार्मेसी और डायग्नोस्टिक लैब टेस्ट बुकिंग प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Apollo 24|7",
+        url: "https://www.apollo247.com/",
+        category: "health",
+        popular: true,
+        descEn: "Apollo Hospitals' 24/7 digital healthcare, pharmacy delivery, and specialist consultation app.",
+        descHi: "अपोलो हॉस्पिटल्स का 24/7 डिजिटल हेल्थकेयर और दवा डिलीवरी ऐप।"
+      },
+      {
+        name: "Cult.fit",
+        url: "https://www.cure.fit/",
+        category: "health",
+        popular: true,
+        descEn: "India's largest fitness, yoga, gym, and holistic wellness platform.",
+        descHi: "फिटनेस, योगा, जिम और संपूर्ण स्वास्थ्य का भारत का सबसे बड़ा प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Qure.ai",
+        url: "https://www.qure.ai/",
+        category: "health",
+        popular: true,
+        descEn: "World-leading Indian medical imaging AI diagnosing X-rays and CT scans in seconds.",
+        descHi: "एक्स-रे और सीटी स्कैन का त्वरित विश्लेषण करने वाला विश्व-प्रसिद्ध भारतीय मेडिकल AI।"
+      },
+      {
+        name: "SigTuple",
+        url: "https://sigtuple.com/",
+        category: "health",
+        descEn: "AI-driven smart diagnostic solutions for digital pathology and blood microscopy.",
+        descHi: "डिजिटल पैथोलॉजी और रक्त जांच के लिए AI आधारित स्मार्ट डायग्नोस्टिक प्लेटफ़ॉर्म।"
+      },
+      {
+        name: "Niramai",
+        url: "https://www.niramai.com/",
+        category: "health",
+        descEn: "Non-invasive, radiation-free AI thermal imaging for early breast cancer screening.",
+        descHi: "बिना रेडिएशन के AI थर्मल इमेजिंग द्वारा प्रारंभिक कैंसर जांच तकनीक।"
+      }
+    ];
+
+    // Helper: Extract clean domain name from URL
+    function getCleanDomain(urlStr) {
+      try {
+        const u = new URL(urlStr);
+        return u.hostname.replace('www.', '');
+      } catch(e) {
+        return urlStr;
+      }
+    }
+
+    // Toggle Language
+    function toggleLanguage() {
+      currentLang = currentLang === "en" ? "hi" : "en";
+      document.getElementById("langLabel").textContent = currentLang === "en" ? "हिन्दी" : "English";
+      updateUIStrings();
+      renderCategoryTabs();
+      renderPlatforms();
+    }
+
+    // Update Static UI Strings
+    function updateUIStrings() {
+      const t = i18n[currentLang];
+      document.getElementById("brandTitle").textContent = t.brandTitle;
+      document.getElementById("brandSubtitle").textContent = t.brandSubtitle;
+      document.getElementById("heroBadge").textContent = t.heroBadge;
+      document.getElementById("heroTitle").textContent = t.heroTitle;
+      document.getElementById("heroDesc").textContent = t.heroDesc;
+      document.getElementById("searchInput").placeholder = t.searchPlaceholder;
+      document.getElementById("mobileSearchInput").placeholder = t.searchPlaceholder;
+      document.getElementById("filterLabel").textContent = t.filterLabel;
+      document.getElementById("emptyTitle").textContent = t.emptyTitle;
+      document.getElementById("emptyDesc").textContent = t.emptyDesc;
+    }
+
+    // Set View Mode (Grid / List)
+    function setViewMode(mode) {
+      currentView = mode;
+      const gridBtn = document.getElementById("gridViewBtn");
+      const listBtn = document.getElementById("listViewBtn");
+      
+      if (mode === "grid") {
+        gridBtn.className = "p-2 rounded-lg text-xs font-bold transition-all bg-white text-slate-900 shadow-xs";
+        listBtn.className = "p-2 rounded-lg text-xs font-bold transition-all text-slate-500 hover:text-slate-900";
+        document.getElementById("platformsContainer").className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6";
+      } else {
+        listBtn.className = "p-2 rounded-lg text-xs font-bold transition-all bg-white text-slate-900 shadow-xs";
+        gridBtn.className = "p-2 rounded-lg text-xs font-bold transition-all text-slate-500 hover:text-slate-900";
+        document.getElementById("platformsContainer").className = "flex flex-col gap-3.5";
+      }
+      renderPlatforms();
+    }
+
+    // Filter by Category
+    function selectCategory(catId) {
+      activeCategory = catId;
+      renderCategoryTabs();
+      renderPlatforms();
+    }
+
+    // Render Category Tabs
+    function renderCategoryTabs() {
+      const container = document.getElementById("categoryTabs");
+      container.innerHTML = categories.map(cat => {
+        const isActive = activeCategory === cat.id;
+        const label = currentLang === "hi" ? cat.hi : cat.en;
+        return `
+          <button
+            onclick="selectCategory('${cat.id}')"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold shrink-0 transition-all shadow-xs ${
+              isActive
+                ? "bg-slate-900 text-white shadow-md scale-102"
+                : "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200"
+            }"
+          >
+            <i class="fa-solid ${cat.icon} ${isActive ? 'text-saffron-500' : 'text-slate-400'}"></i>
+            <span>${label}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    // Render Platforms Cards / List items
+    function renderPlatforms() {
+      const t = i18n[currentLang];
+      const container = document.getElementById("platformsContainer");
+      const emptyState = document.getElementById("emptyState");
+
+      // Filter logic
+      const filtered = platforms.filter(p => {
+        const matchesCat = activeCategory === "all" || p.category === activeCategory;
+        const matchesSearch = searchQuery === "" || 
+          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.descEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.descHi.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.url.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCat && matchesSearch;
+      });
+
+      // Update count badge
+      document.getElementById("resultCountBadge").textContent = `Showing ${filtered.length} platforms`;
+      document.getElementById("statCount").textContent = `${platforms.length}+`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+
+      container.innerHTML = filtered.map(platform => {
+        const desc = currentLang === "hi" ? platform.descHi : platform.descEn;
+        const domain = getCleanDomain(platform.url);
+        const initial = platform.name.charAt(0).toUpperCase();
+
+        // SPECIAL FEATURED HIGHLIGHT FOR DUDI PDF EDITOR
+        if (platform.featured) {
+          if (currentView === "grid") {
+            return `
+              <div class="featured-glow-wrapper transition-transform duration-200 hover:-translate-y-1">
+                <article class="h-full bg-gradient-to-br from-amber-50/95 via-white to-saffron-50/90 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-3.5">
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-gradient-to-r from-saffron-500 to-amber-500 text-white shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>${t.featuredBadge}</span>
+                      </span>
+                    </div>
+
+                    <div class="flex items-center gap-3 mb-2.5">
+                      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-saffron-500 to-amber-500 text-white font-extrabold text-lg flex items-center justify-center shadow-md shrink-0">
+                        PDF
+                      </div>
+                      <div class="min-w-0">
+                        <h3 class="text-lg font-extrabold text-slate-900 truncate flex items-center gap-1.5">
+                          ${platform.name}
+                          <i class="fa-solid fa-star text-amber-500 text-xs"></i>
+                        </h3>
+                        <p class="text-xs font-semibold text-saffron-600 truncate">${domain}</p>
+                      </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                      ${desc}
+                    </p>
+                  </div>
+
+                  <div class="mt-5 pt-3.5 border-t border-amber-200/70 flex items-center justify-between">
+                    <span class="text-[11px] font-bold text-indiaGreen-700 bg-indiaGreen-50 px-2.5 py-1 rounded-md border border-indiaGreen-200">
+                      🇮🇳 #1 AI PDF Tool
+                    </span>
+                    <a
+                      href="${platform.url}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-saffron-500 to-amber-500 hover:from-saffron-600 hover:to-amber-600 text-white text-xs sm:text-sm font-bold shadow-md transition-all"
+                    >
+                      <span>${t.visitBtn}</span>
+                      <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                  </div>
+                </article>
+              </div>
+            `;
+          } else {
+            return `
+              <div class="featured-glow-wrapper transition-transform duration-200 hover:-translate-y-0.5">
+                <article class="bg-gradient-to-r from-amber-50 via-white to-saffron-50 rounded-2xl p-4 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div class="flex items-start sm:items-center gap-3.5 min-w-0">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-saffron-500 to-amber-500 text-white font-extrabold text-base flex items-center justify-center shadow-md shrink-0">
+                      PDF
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <h3 class="text-base sm:text-lg font-extrabold text-slate-900">${platform.name}</h3>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-saffron-500 to-amber-500 text-white shadow-xs">
+                          <i class="fa-solid fa-wand-magic-sparkles"></i> ${t.featuredBadge}
+                        </span>
+                      </div>
+                      <p class="text-xs sm:text-sm text-slate-700 font-medium mt-1">${desc}</p>
+                      <p class="text-[11px] font-semibold text-saffron-600 mt-0.5">${domain}</p>
+                    </div>
+                  </div>
+                  <div class="shrink-0 self-end sm:self-center">
+                    <a
+                      href="${platform.url}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-saffron-500 to-amber-500 hover:from-saffron-600 hover:to-amber-600 text-white text-xs sm:text-sm font-bold shadow-md transition-all"
+                    >
+                      <span>${t.visitBtn}</span>
+                      <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                  </div>
+                </article>
+              </div>
+            `;
+          }
+        }
+
+        // STANDARD PLATFORM CARD (GRID VIEW)
+        if (currentView === "grid") {
+          return `
+            <article class="bg-white rounded-2xl border border-slate-200/90 hover:border-saffron-300 p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group">
+              <div>
+                <div class="flex items-center justify-between gap-2.5 mb-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-bold text-base flex items-center justify-center shrink-0 group-hover:bg-saffron-50 group-hover:text-saffron-600 group-hover:border-saffron-200 transition-colors">
+                      ${initial}
+                    </div>
+                    <div class="min-w-0">
+                      <h3 class="text-base font-bold text-slate-900 truncate group-hover:text-saffron-600 transition-colors">
+                        ${platform.name}
+                      </h3>
+                      <p class="text-xs text-slate-400 truncate">${domain}</p>
+                    </div>
+                  </div>
+                  ${platform.popular ? `
+                    <span class="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-indiaGreen-50 text-indiaGreen-700 border border-indiaGreen-200">
+                      <i class="fa-solid fa-star text-[10px]"></i> ${t.popularBadge}
+                    </span>
+                  ` : ""}
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
+                  ${desc}
+                </p>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span class="text-[11px] font-medium text-slate-400"><i class="fa-solid fa-flag text-saffron-500 mr-1"></i> India</span>
+                <a
+                  href="${platform.url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-saffron-600 text-white text-xs font-semibold transition-colors"
+                >
+                  <span>${t.visitBtn}</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+              </div>
+            </article>
+          `;
+        }
+
+        // STANDARD PLATFORM ROW (LIST VIEW)
+        return `
+          <article class="bg-white rounded-2xl border border-slate-200/90 hover:border-saffron-300 p-4 sm:px-5 shadow-xs hover:shadow-sm transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 group">
+            <div class="flex items-start sm:items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 font-bold text-base flex items-center justify-center shrink-0 group-hover:bg-saffron-50 group-hover:text-saffron-600 group-hover:border-saffron-200 transition-colors">
+                ${initial}
+              </div>
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-base font-bold text-slate-900 group-hover:text-saffron-600 transition-colors">${platform.name}</h3>
+                  ${platform.popular ? `
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-indiaGreen-50 text-indiaGreen-700 border border-indiaGreen-200">
+                      <i class="fa-solid fa-star text-[10px]"></i> ${t.popularBadge}
+                    </span>
+                  ` : ""}
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2">${desc}</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">${domain}</p>
+              </div>
+            </div>
+
+            <div class="shrink-0 self-end sm:self-center">
+              <a
+                href="${platform.url}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 hover:bg-saffron-600 text-white text-xs sm:text-sm font-semibold transition-colors"
+              >
+                <span>${t.visitBtn}</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // Search Event Listeners
+    const searchInput = document.getElementById("searchInput");
+    const mobileSearchInput = document.getElementById("mobileSearchInput");
+    const clearSearchBtn = document.getElementById("clearSearchBtn");
+
+    function handleSearchInput(e) {
+      searchQuery = e.target.value.trim();
+      if (searchInput !== e.target) searchInput.value = searchQuery;
+      if (mobileSearchInput !== e.target) mobileSearchInput.value = searchQuery;
+      
+      if (searchQuery.length > 0) {
+        clearSearchBtn.classList.remove("hidden");
+      } else {
+        clearSearchBtn.classList.add("hidden");
+      }
+      renderPlatforms();
+    }
+
+    searchInput.addEventListener("input", handleSearchInput);
+    mobileSearchInput.addEventListener("input", handleSearchInput);
+
+    clearSearchBtn.addEventListener("click", () => {
+      searchQuery = "";
+      searchInput.value = "";
+      mobileSearchInput.value = "";
+      clearSearchBtn.classList.add("hidden");
+      renderPlatforms();
+    });
+
+    // Initialize on Load
+    window.onload = function() {
+      renderCategoryTabs();
+      renderPlatforms();
+    };
+  </script>
+</body>
+</html>
